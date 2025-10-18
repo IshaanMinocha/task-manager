@@ -1,10 +1,9 @@
 export const consts = {
     env: {
-        port: process.env.PORT,
         nodeEnv: process.env.NODE_ENV
     },
     database: {
-        uri: process.env.DATABASE_URI
+        url: process.env.DATABASE_URL
     },
     jwt: {
         secret: process.env.JWT_SECRET,

@@ -6,7 +6,7 @@ import { UpdateTaskRequest } from '@/types';
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const user = await getUserFromRequest(request);
@@ -15,7 +15,7 @@ export async function PUT(
             return ErrorResponses.unauthorized();
         }
 
-        const taskId = params.id;
+        const { id: taskId } = await params;
 
         const existingTask = await prisma.task.findUnique({
             where: { id: taskId },
@@ -63,7 +63,7 @@ export async function PUT(
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const user = await getUserFromRequest(request);
@@ -72,7 +72,7 @@ export async function DELETE(
             return ErrorResponses.unauthorized();
         }
 
-        const taskId = params.id;
+        const { id: taskId } = await params;
 
         const existingTask = await prisma.task.findUnique({
             where: { id: taskId },
