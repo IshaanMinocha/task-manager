@@ -1,6 +1,12 @@
 import '@testing-library/jest-dom';
 
-process.env.VITE_API_URL = 'http://localhost:3000';
+(global as any).import = {
+    meta: {
+        env: {
+            VITE_API_URL: 'http://localhost:3000'
+        }
+    }
+};
 
 Object.defineProperty(window, 'matchMedia', {
     writable: true,
@@ -24,11 +30,9 @@ const localStorageMock = {
 };
 global.localStorage = localStorageMock as any;
 
-if (!process.env.DEBUG) {
-    global.console = {
-        ...console,
-        error: jest.fn(),
-        warn: jest.fn(),
-    };
-}
+global.console = {
+    ...console,
+    error: jest.fn(),
+    warn: jest.fn(),
+};
 

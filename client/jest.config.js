@@ -5,8 +5,10 @@ export default {
     testMatch: ['**/__tests__/**/*.test.ts', '**/__tests__/**/*.test.tsx'],
     moduleNameMapper: {
         '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-        '^../utils/consts$': '<rootDir>/src/__tests__/mocks/consts.ts',
-        '^../../utils/consts$': '<rootDir>/src/__tests__/mocks/consts.ts',
+        '^.*/consts$': '<rootDir>/src/__tests__/mocks/consts.ts',
+    },
+    globals: {
+        'process.env.NODE_ENV': 'test',
     },
     collectCoverageFrom: [
         'src/**/*.{ts,tsx}',

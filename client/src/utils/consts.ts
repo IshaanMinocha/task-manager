@@ -1,9 +1,10 @@
-const getBaseUrl = () => {
-    if (typeof process !== 'undefined' && process.env.VITE_API_URL) {
-        return process.env.VITE_API_URL;
+function getBaseUrl(): string {
+    try {
+        return import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    } catch {
+        return 'http://localhost:3000';
     }
-    return 'http://localhost:3000';
-};
+}
 
 export const consts = {
     api: {
