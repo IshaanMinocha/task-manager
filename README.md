@@ -2,6 +2,12 @@
 
 A fullstack task management application with secure user authentication, allowing users to register, login, and manage their personal tasks with real-time updates.
 
+## Live Demo
+
+- **Frontend:** [meatec.ishaanminocha.in](https://meatec.ishaanminocha.in/)
+- **Backend API:** [meatec-backend.ishaanminocha.in/api](https://meatec-backend.ishaanminocha.in/api)
+
+
 ## Features
 
 - **User Authentication**
