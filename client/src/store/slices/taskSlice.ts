@@ -114,27 +114,53 @@ const taskSlice = createSlice({
             });
 
         builder
-            .addCase(createTask.pending, (state) => {
-                state.loading = true;
+            .addCase(createTask.pending, (state, action) => {
+                const tempTask: Task = {
+                    id: `temp-${Date.now()}`,
+                    title: action.meta.arg.title || '',
+                    description: action.meta.arg.description || '',
+                    status: action.meta.arg.status || 'PENDING',
+                    userId: '',
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString(),
+                };
+                state.tasks.unshift(tempTask);
                 state.error = null;
             })
             .addCase(createTask.fulfilled, (state, action) => {
-                state.loading = false;
-                state.tasks.unshift(action.payload);
+                const tempIndex = state.tasks.findIndex(t => t.id.startsWith('temp-'));
+                if (tempIndex !== -1) {
+                    state.tasks[tempIndex] = action.payload;
+                } else {
+                    state.tasks.unshift(action.payload);
+                }
                 state.error = null;
             })
             .addCase(createTask.rejected, (state, action) => {
-                state.loading = false;
+                state.tasks = state.tasks.filter(t => !t.id.startsWith('temp-'));
                 state.error = action.payload as string;
             });
 
         builder
-            .addCase(updateTask.pending, (state) => {
-                state.loading = true;
+            .addCase(updateTask.pending, (state, action) => {
+                const index = state.tasks.findIndex((task) => task.id === action.meta.arg.id);
+                if (index !== -1) {
+                    state.tasks[index] = {
+                        ...state.tasks[index],
+                        ...action.meta.arg.data,
+                        updatedAt: new Date().toISOString(),
+                    };
+                }
+                if (state.selectedTask?.id === action.meta.arg.id) {
+                    state.selectedTask = {
+                        ...state.selectedTask,
+                        ...action.meta.arg.data,
+                        updatedAt: new Date().toISOString(),
+                    };
+                }
                 state.error = null;
             })
             .addCase(updateTask.fulfilled, (state, action) => {
-                state.loading = false;
                 const index = state.tasks.findIndex((task) => task.id === action.payload.id);
                 if (index !== -1) {
                     state.tasks[index] = action.payload;
@@ -145,25 +171,21 @@ const taskSlice = createSlice({
                 state.error = null;
             })
             .addCase(updateTask.rejected, (state, action) => {
-                state.loading = false;
                 state.error = action.payload as string;
             });
 
         builder
-            .addCase(deleteTask.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(deleteTask.fulfilled, (state, action) => {
-                state.loading = false;
-                state.tasks = state.tasks.filter((task) => task.id !== action.payload);
-                if (state.selectedTask?.id === action.payload) {
+            .addCase(deleteTask.pending, (state, action) => {
+                state.tasks = state.tasks.filter((task) => task.id !== action.meta.arg);
+                if (state.selectedTask?.id === action.meta.arg) {
                     state.selectedTask = null;
                 }
                 state.error = null;
             })
+            .addCase(deleteTask.fulfilled, (state) => {
+                state.error = null;
+            })
             .addCase(deleteTask.rejected, (state, action) => {
-                state.loading = false;
                 state.error = action.payload as string;
             });
     },

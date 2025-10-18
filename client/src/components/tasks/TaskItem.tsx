@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Task } from '../../types';
+import { formatDate } from '../../utils/dateFormat';
 
 interface TaskItemProps {
     task: Task;
@@ -77,7 +78,7 @@ const TaskItem = ({ task, onEdit, onDelete, onToggleStatus }: TaskItemProps) => 
                                     {task.status === 'COMPLETED' ? 'Completed' : 'Pending'}
                                 </span>
                                 <span className="text-xs text-gray-500">
-                                    {new Date(task.createdAt).toLocaleDateString()}
+                                    {formatDate(task.createdAt)}
                                 </span>
                             </div>
                         </div>
