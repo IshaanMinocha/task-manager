@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { comparePassword, generateToken } from '@/lib/auth';
+import { successResponse, ErrorResponses } from '@/lib/response';
 import { LoginRequest, UserResponse } from '@/types';
 
 export async function POST(request: Request) {
@@ -9,10 +9,7 @@ export async function POST(request: Request) {
         const { username, password } = body;
 
         if (!username || !password) {
-            return NextResponse.json(
-                { success: false, error: 'Username and password are required' },
-                { status: 400 }
-            );
+            return ErrorResponses.missingFields(['username', 'password']);
         }
 
         const user = await prisma.user.findUnique({
@@ -20,19 +17,13 @@ export async function POST(request: Request) {
         });
 
         if (!user) {
-            return NextResponse.json(
-                { success: false, error: 'Invalid username or password' },
-                { status: 401 }
-            );
+            return ErrorResponses.unauthorized('Invalid username or password');
         }
 
         const isPasswordValid = await comparePassword(password, user.password);
 
         if (!isPasswordValid) {
-            return NextResponse.json(
-                { success: false, error: 'Invalid username or password' },
-                { status: 401 }
-            );
+            return ErrorResponses.unauthorized('Invalid username or password');
         }
 
         const token = generateToken({
@@ -47,22 +38,15 @@ export async function POST(request: Request) {
             updatedAt: user.updatedAt,
         };
 
-        return NextResponse.json(
+        return successResponse(
             {
-                success: true,
-                message: 'Login successful',
-                data: {
-                    token,
-                    user: userResponse,
-                },
+                token,
+                user: userResponse,
             },
-            { status: 200 }
+            'Login successful'
         );
     } catch (error) {
         console.error('Login error:', error);
-        return NextResponse.json(
-            { success: false, error: 'Internal server error' },
-            { status: 500 }
-        );
+        return ErrorResponses.serverError();
     }
 }
