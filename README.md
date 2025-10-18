@@ -1,124 +1,376 @@
-# Task Management Application with User Authentication
+# Task Management Application
 
-## 1. Objective
+A fullstack task management application with secure user authentication, allowing users to register, login, and manage their personal tasks with real-time updates.
 
-Develop a full-stack task management application where users can register, log in, and manage their own tasks. The application must include secure authentication with JWT, perform CRUD operations on tasks, and demonstrate modern development practices in both frontend and backend.
+## Features
 
----
+- **User Authentication**
 
-## 2. Technology Stack
+  - Secure registration and login with JWT
+  - Password hashing with bcrypt
+  - Protected routes and API endpoints
+  - Persistent authentication (localStorage)
 
-### a. Frontend
+- **Task Management**
 
-- React (Vite)
-- TailwindCSS
-- Redux Toolkit
-- Axios
-- Zod for validation (Optional)
-- Jest (with coverage) (Optional)
+  - Create, read, update, and delete tasks
+  - Real-time optimistic UI updates
+  - Task status tracking (Pending/Completed)
+  - User-specific task isolation
 
-### b. Backend
+- **Modern UI/UX**
 
-- NextJs (TypeScript)
-- Prisma ORM
-- MongoDB
-- JWT authentication
-- Jest (with coverage) (Optional)
+  - Responsive design with TailwindCSS
+  - Duochrome theme
+  - Smooth animations and transitions
+  - Form validation with real-time feedback
 
----
+- **Testing**
+  - 135 comprehensive tests (69 backend + 66 frontend)
+  - Unit and integration testing
+  - Test coverage reports
 
-## 3. Requirements
+## Technology Stack
 
 ### Frontend
 
-#### a. Authentication Workflow
-
-- User registration with username and password
-- Login that returns a JWT token on success
-- Frontend stores the token securely (e.g., in localStorage)
-- Logout functionality
-- Protected API routes that require a valid JWT
-
-#### b. Task Management
-
-Authenticated users can:
-- View their list of tasks
-- Create new tasks
-- Update existing tasks
-- Delete tasks
-
-Each task must include:
-- title (string)
-- description (optional)
-- status (e.g., pending, completed)
-
-Users should only see and manage their own tasks.
-
-#### c. Validation
-
-- All forms must be validated on the frontend using Zod + React Hook Form/Formik
-- Backend should also validate request bodies and handle errors gracefully
-
----
+- **React 19** with Vite for fast development
+- **Redux Toolkit** for state management
+- **React Router** for navigation
+- **TailwindCSS** for styling
+- **Axios** for API calls
+- **React Hook Form + Zod** for form validation
+- **Jest + React Testing Library** for testing
 
 ### Backend
 
-#### a. API Endpoints
+- **Next.js 15** (App Router) with TypeScript
+- **Prisma ORM** with MongoDB
+- **JWT** for authentication
+- **bcryptjs** for password hashing
+- **Jest + Supertest** for testing
 
-**Authentication:**
+## Local Setup Instructions
 
-- POST `/api/auth/register`: Register a new user
-- POST `/api/auth/login`: Authenticate and return a JWT
+### 1. Clone the Repository
 
-**Tasks:**
+```bash
+git clone https://github.com/IshaanMinocha/task-manager.git
+cd task-manager
+```
 
-- GET `/api/tasks`: Get tasks for the logged-in user
-- POST `/api/tasks`: Create a new task
-- PUT `/api/tasks/:id`: Update an existing task
-- DELETE `/api/tasks/:id`: Delete a task
+### 2. Backend Setup
 
-_All task-related routes must require a valid JWT._
+#### Install Dependencies
 
-#### b. Database
+```bash
+cd server
+npm install
+```
 
-- Use PostgreSQL/MongoDB/CouchDB/MySQL as the database.
-- Define database tables for Users and Tasks with relationships.
+#### Set Up Environment Variables
 
----
+Create a `.env` file in the `server` directory from .env.example
 
-## 4. Testing (Optional)
+#### Set Up Database
 
-- Include automated tests for both frontend and backend.
-- Use Jest for unit and integration testing.
+```bash
+npm run prisma:generate
 
-### a. Backend tests should cover:
+npm run db:push
+```
 
-- Auth logic (register/login)
-- Task logic (CRUD operations)
-- Authorization middleware
+### 3. Frontend Setup
 
-### b. Frontend tests should cover:
+#### Install Dependencies
 
-- Form validation
-- UI behavior and component rendering
+```bash
+cd ../client
+npm install
+```
 
-_Test coverage report must be generated for both frontend and backend._
+#### Set Up Environment Variables
 
----
+Create a `.env` file in the `client` directory from .env.example
 
-## 5. Deliverables
+## Running the Application
 
-- A public GitHub repository containing both frontend and backend.
-- A complete `README.md` file with:
-  - Local setup instructions
-  - How to run the application
-  - How to run tests and view coverage
-  - API endpoint documentation
+### Start the Backend Server
 
----
+```bash
+cd server
+npm run dev
+```
 
-**Extra Points:**
+The backend API will be available at `http://localhost:3000`
 
-- Unit tests for frontend and backend
+### Start the Frontend Development Server
 
-**Due date:** 3 days (**max.**) from date of receipt
+In a new terminal:
+
+```bash
+cd client
+npm run dev
+```
+
+The frontend will be available at `http://localhost:5173`
+
+### Access the Application
+
+Open your browser and navigate to:
+
+```
+http://localhost:5173
+```
+
+## Running Tests
+
+### Backend Tests (69 tests)
+
+```bash
+cd server
+
+# Run all tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+### Frontend Tests (66 tests)
+
+```bash
+cd client
+
+# Run all tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+### View Coverage Reports
+
+After running tests with coverage, open the HTML reports:
+
+**Backend:**
+
+```bash
+cd server
+start coverage/lcov-report/index.html
+```
+
+**Frontend:**
+
+```bash
+cd client
+start coverage/lcov-report/index.html
+```
+
+## API Endpoints
+
+### Authentication Endpoints
+
+#### Register User
+
+```http
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "password123"
+}
+```
+
+**Response (201 Created):**
+
+```json
+{
+  "success": true,
+  "message": "User registered successfully",
+  "data": {
+    "id": "user_id",
+    "username": "john_doe",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+#### Login
+
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "password123"
+}
+```
+
+**Response (200 OK):**
+
+```json
+{
+  "success": true,
+  "message": "Login successful",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "user": {
+      "id": "user_id",
+      "username": "john_doe",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  }
+}
+```
+
+### Task Endpoints (Protected - Requires JWT)
+
+All task endpoints require authentication. Include the JWT token in the Authorization header:
+
+```
+Authorization: Bearer <your-jwt-token>
+```
+
+#### Get All Tasks
+
+```http
+GET /api/tasks
+Authorization: Bearer <token>
+```
+
+**Response (200 OK):**
+
+```json
+{
+  "success": true,
+  "message": "Tasks retrieved successfully",
+  "data": [
+    {
+      "id": "task_id",
+      "title": "Complete project",
+      "description": "Finish the task management app",
+      "status": "PENDING",
+      "userId": "user_id",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
+```
+
+#### Create Task
+
+```http
+POST /api/tasks
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "title": "New Task",
+  "description": "Task description (optional)",
+  "status": "PENDING"
+}
+```
+
+**Response (201 Created):**
+
+```json
+{
+  "success": true,
+  "message": "Task created successfully",
+  "data": {
+    "id": "task_id",
+    "title": "New Task",
+    "description": "Task description",
+    "status": "PENDING",
+    "userId": "user_id",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+#### Update Task
+
+```http
+PUT /api/tasks/:id
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "title": "Updated Task",
+  "description": "Updated description",
+  "status": "COMPLETED"
+}
+```
+
+**Response (200 OK):**
+
+```json
+{
+  "success": true,
+  "message": "Task updated successfully",
+  "data": {
+    "id": "task_id",
+    "title": "Updated Task",
+    "description": "Updated description",
+    "status": "COMPLETED",
+    "userId": "user_id",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T12:00:00.000Z"
+  }
+}
+```
+
+#### Delete Task
+
+```http
+DELETE /api/tasks/:id
+Authorization: Bearer <token>
+```
+
+**Response (200 OK):**
+
+```json
+{
+  "success": true,
+  "message": "Task deleted successfully",
+  "data": {
+    "id": "task_id"
+  }
+}
+```
+
+### Error Responses
+
+All endpoints return consistent error responses:
+
+```json
+{
+  "success": false,
+  "error": "Error message description"
+}
+```
+
+**Common HTTP Status Codes:**
+
+- `400` - Bad Request (validation errors)
+- `401` - Unauthorized (missing or invalid token)
+- `403` - Forbidden (insufficient permissions)
+- `404` - Not Found (resource doesn't exist)
+- `409` - Conflict (duplicate username)
+- `500` - Internal Server Error
+
+
+
+## Thank you!
