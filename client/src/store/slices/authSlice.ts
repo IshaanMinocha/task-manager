@@ -3,8 +3,17 @@ import type { AuthState, LoginRequest, RegisterRequest, User } from '../../types
 import { authService } from '../../services/authService';
 import { saveToken, getToken, removeToken } from '../../utils/auth';
 
+const loadUserFromStorage = (): User | null => {
+    try {
+        const userStr = localStorage.getItem('user');
+        return userStr ? JSON.parse(userStr) : null;
+    } catch {
+        return null;
+    }
+};
+
 const initialState: AuthState = {
-    user: null,
+    user: loadUserFromStorage(),
     token: getToken(),
     isAuthenticated: !!getToken(),
     loading: false,
@@ -58,12 +67,14 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
             state.error = null;
             removeToken();
+            localStorage.removeItem('user');
         },
         setCredentials: (state, action: PayloadAction<{ user: User; token: string }>) => {
             state.user = action.payload.user;
             state.token = action.payload.token;
             state.isAuthenticated = true;
             saveToken(action.payload.token);
+            localStorage.setItem('user', JSON.stringify(action.payload.user));
         },
         clearError: (state) => {
             state.error = null;
@@ -81,6 +92,7 @@ const authSlice = createSlice({
                 state.token = action.payload.token;
                 state.isAuthenticated = true;
                 state.error = null;
+                localStorage.setItem('user', JSON.stringify(action.payload.user));
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;

@@ -22,7 +22,7 @@ const TaskItem = ({ task, onEdit, onDelete, onToggleStatus }: TaskItemProps) => 
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border border-gray-200">
+        <div className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow border-4 border-black">
             <div className="flex items-start justify-between">
                 <div className="flex-1">
                     <div className="flex items-center gap-3">
@@ -87,7 +87,7 @@ const TaskItem = ({ task, onEdit, onDelete, onToggleStatus }: TaskItemProps) => 
                 <div className="flex items-center gap-2 ml-4">
                     <button
                         onClick={() => onEdit(task)}
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-black hover:bg-gray-100 rounded-lg transition-colors border-2 border-black"
                         title="Edit task"
                     >
                         <svg
@@ -106,7 +106,7 @@ const TaskItem = ({ task, onEdit, onDelete, onToggleStatus }: TaskItemProps) => 
                     </button>
                     <button
                         onClick={() => setShowDeleteConfirm(true)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-2 text-black hover:bg-gray-100 rounded-lg transition-colors border-2 border-black"
                         title="Delete task"
                     >
                         <svg
@@ -127,18 +127,18 @@ const TaskItem = ({ task, onEdit, onDelete, onToggleStatus }: TaskItemProps) => 
             </div>
 
             {showDeleteConfirm && (
-                <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-sm text-red-800 mb-2">Are you sure you want to delete this task?</p>
+                <div className="mt-3 p-3 bg-white border-2 border-black rounded-lg">
+                    <p className="text-sm text-black font-bold mb-2">Are you sure you want to delete this task?</p>
                     <div className="flex gap-2">
                         <button
                             onClick={handleDelete}
-                            className="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-700"
+                            className="px-3 py-1 text-sm font-bold text-white bg-black border-2 border-black rounded hover:bg-gray-800"
                         >
                             Delete
                         </button>
                         <button
                             onClick={() => setShowDeleteConfirm(false)}
-                            className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50"
+                            className="px-3 py-1 text-sm font-bold text-black bg-white border-2 border-black rounded hover:bg-gray-100"
                         >
                             Cancel
                         </button>

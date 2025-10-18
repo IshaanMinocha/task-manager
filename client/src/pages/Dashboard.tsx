@@ -23,15 +23,15 @@ const Dashboard = () => {
     }, [dispatch]);
 
     const handleCreateTask = async (data: TaskFormData) => {
-        await dispatch(createTask(data));
         setIsModalOpen(false);
+        dispatch(createTask(data));
     };
 
     const handleUpdateTask = async (data: TaskFormData) => {
         if (selectedTask) {
-            await dispatch(updateTask({ id: selectedTask.id, data }));
             setIsModalOpen(false);
             setSelectedTask(null);
+            dispatch(updateTask({ id: selectedTask.id, data }));
         }
     };
 
@@ -40,12 +40,12 @@ const Dashboard = () => {
         setIsModalOpen(true);
     };
 
-    const handleDeleteTask = async (id: string) => {
-        await dispatch(deleteTask(id));
+    const handleDeleteTask = (id: string) => {
+        dispatch(deleteTask(id));
     };
 
-    const handleToggleStatus = async (id: string, status: TaskStatus) => {
-        await dispatch(updateTask({ id, data: { status } }));
+    const handleToggleStatus = (id: string, status: TaskStatus) => {
+        dispatch(updateTask({ id, data: { status } }));
     };
 
     const handleCloseModal = () => {
@@ -66,15 +66,14 @@ const Dashboard = () => {
 
     return (
         <Layout>
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen bg-white">
                 <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {/* Stats Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        <div className="bg-white rounded-lg shadow p-6 border-l-4 border-blue-500">
+                        <div className="bg-white rounded-lg shadow-lg p-6 border-4 border-black">
                             <div className="flex items-center">
                                 <div className="flex-shrink-0">
                                     <svg
-                                        className="h-8 w-8 text-blue-500"
+                                        className="h-8 w-8 text-black"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -94,11 +93,11 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-lg shadow p-6 border-l-4 border-yellow-500">
+                        <div className="bg-white rounded-lg shadow-lg p-6 border-4 border-black">
                             <div className="flex items-center">
                                 <div className="flex-shrink-0">
                                     <svg
-                                        className="h-8 w-8 text-yellow-500"
+                                        className="h-8 w-8 text-black"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -118,11 +117,11 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-lg shadow p-6 border-l-4 border-green-500">
+                        <div className="bg-white rounded-lg shadow-lg p-6 border-4 border-black">
                             <div className="flex items-center">
                                 <div className="flex-shrink-0">
                                     <svg
-                                        className="h-8 w-8 text-green-500"
+                                        className="h-8 w-8 text-black"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -143,12 +142,11 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    {/* Action Button */}
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-gray-900">My Tasks</h2>
                         <button
                             onClick={handleOpenCreateModal}
-                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                            className="inline-flex items-center px-4 py-2 border-2 border-black text-sm font-bold rounded-lg shadow-lg text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-colors"
                         >
                             <svg
                                 className="w-5 h-5 mr-2"
@@ -167,7 +165,6 @@ const Dashboard = () => {
                         </button>
                     </div>
 
-                    {/* Task List */}
                     <TaskList
                         tasks={tasks}
                         loading={loading}
@@ -176,7 +173,6 @@ const Dashboard = () => {
                         onToggleStatus={handleToggleStatus}
                     />
 
-                    {/* Task Modal */}
                     <TaskModal
                         isOpen={isModalOpen}
                         task={selectedTask}
@@ -191,4 +187,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

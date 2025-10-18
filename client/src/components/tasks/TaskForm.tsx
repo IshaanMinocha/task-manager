@@ -34,8 +34,8 @@ const TaskForm = ({ task, onSubmit, onCancel, loading = false }: TaskFormProps) 
                     {...register('title')}
                     id="title"
                     type="text"
-                    className={`mt-1 block w-full px-3 py-2 border ${errors.title ? 'border-red-300' : 'border-gray-300'
-                        } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm`}
+                    className={`mt-1 block w-full px-3 py-2 border-2 ${errors.title ? 'border-red-500' : 'border-black'
+                        } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black sm:text-sm`}
                     placeholder="Enter task title"
                 />
                 {errors.title && (
@@ -51,8 +51,8 @@ const TaskForm = ({ task, onSubmit, onCancel, loading = false }: TaskFormProps) 
                     {...register('description')}
                     id="description"
                     rows={3}
-                    className={`mt-1 block w-full px-3 py-2 border ${errors.description ? 'border-red-300' : 'border-gray-300'
-                        } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm`}
+                    className={`mt-1 block w-full px-3 py-2 border-2 ${errors.description ? 'border-red-500' : 'border-black'
+                        } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black sm:text-sm`}
                     placeholder="Enter task description (optional)"
                 />
                 {errors.description && (
@@ -67,7 +67,7 @@ const TaskForm = ({ task, onSubmit, onCancel, loading = false }: TaskFormProps) 
                 <select
                     {...register('status')}
                     id="status"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm"
+                    className="mt-1 block w-full px-3 py-2 border-2 border-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black sm:text-sm"
                 >
                     <option value="PENDING">Pending</option>
                     <option value="COMPLETED">Completed</option>
@@ -78,14 +78,14 @@ const TaskForm = ({ task, onSubmit, onCancel, loading = false }: TaskFormProps) 
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="px-4 py-2 text-sm font-bold text-black bg-white border-2 border-black rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
                 >
                     Cancel
                 </button>
                 <button
                     type="submit"
                     disabled={loading}
-                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-400 disabled:cursor-not-allowed"
+                    className="px-4 py-2 text-sm font-bold text-white bg-black border-2 border-black rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                     {loading ? 'Saving...' : task ? 'Update Task' : 'Create Task'}
                 </button>

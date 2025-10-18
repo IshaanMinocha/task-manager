@@ -31,37 +31,37 @@ const TaskList = ({ tasks, loading, onEdit, onDelete, onToggleStatus }: TaskList
     if (loading) {
         return (
             <div className="flex justify-center items-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-black"></div>
             </div>
         );
     }
 
     return (
         <div className="space-y-4">
-            <div className="flex gap-2 border-b border-gray-200">
+            <div className="flex gap-2 border-b-2 border-black">
                 <button
                     onClick={() => setFilter('all')}
-                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${filter === 'all'
-                        ? 'border-blue-500 text-blue-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    className={`px-4 py-2 text-sm font-bold border-b-4 transition-colors ${filter === 'all'
+                        ? 'border-black text-black'
+                        : 'border-transparent text-gray-500 hover:text-black hover:border-gray-300'
                         }`}
                 >
                     All ({stats.total})
                 </button>
                 <button
                     onClick={() => setFilter('pending')}
-                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${filter === 'pending'
-                        ? 'border-yellow-500 text-yellow-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    className={`px-4 py-2 text-sm font-bold border-b-4 transition-colors ${filter === 'pending'
+                        ? 'border-black text-black'
+                        : 'border-transparent text-gray-500 hover:text-black hover:border-gray-300'
                         }`}
                 >
                     Pending ({stats.pending})
                 </button>
                 <button
                     onClick={() => setFilter('completed')}
-                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${filter === 'completed'
-                        ? 'border-green-500 text-green-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    className={`px-4 py-2 text-sm font-bold border-b-4 transition-colors ${filter === 'completed'
+                        ? 'border-black text-black'
+                        : 'border-transparent text-gray-500 hover:text-black hover:border-gray-300'
                         }`}
                 >
                     Completed ({stats.completed})

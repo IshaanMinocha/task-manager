@@ -15,12 +15,12 @@ const Header = () => {
     };
 
     return (
-        <header className="bg-white shadow-sm border-b border-gray-200">
+        <header className="bg-white shadow-lg border-b-4 border-black">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center py-4">
                     <div className="flex items-center">
                         <svg
-                            className="w-8 h-8 text-blue-600 mr-3"
+                            className="w-8 h-8 text-black mr-3"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -37,8 +37,8 @@ const Header = () => {
 
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span className="text-sm font-medium text-blue-600">
+                            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center border-2 border-black">
+                                <span className="text-sm font-bold text-white">
                                     {user?.username?.charAt(0).toUpperCase()}
                                 </span>
                             </div>
@@ -48,7 +48,7 @@ const Header = () => {
                         </div>
                         <button
                             onClick={handleLogout}
-                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
+                            className="inline-flex items-center px-3 py-2 border-2 border-black text-sm font-bold rounded-lg text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-colors"
                         >
                             <svg
                                 className="w-4 h-4 mr-2"

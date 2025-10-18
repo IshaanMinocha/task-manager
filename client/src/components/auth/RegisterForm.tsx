@@ -40,9 +40,9 @@ const RegisterForm = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen flex items-center justify-center bg-black py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
-                <div className="bg-white rounded-2xl shadow-xl p-8">
+                <div className="bg-white rounded-2xl shadow-2xl p-8 border-4 border-black">
                     <div>
                         <h2 className="text-center text-3xl font-extrabold text-gray-900">
                             Create Account
@@ -85,8 +85,8 @@ const RegisterForm = () => {
                                     id="username"
                                     type="text"
                                     autoComplete="username"
-                                    className={`mt-1 appearance-none relative block w-full px-3 py-2 border ${errors.username ? 'border-red-300' : 'border-gray-300'
-                                        } placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent sm:text-sm`}
+                                    className={`mt-1 appearance-none relative block w-full px-3 py-2 border-2 ${errors.username ? 'border-red-500' : 'border-black'
+                                        } placeholder-gray-400 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-black sm:text-sm`}
                                     placeholder="Choose a username"
                                 />
                                 {errors.username && (
@@ -103,8 +103,8 @@ const RegisterForm = () => {
                                     id="password"
                                     type="password"
                                     autoComplete="new-password"
-                                    className={`mt-1 appearance-none relative block w-full px-3 py-2 border ${errors.password ? 'border-red-300' : 'border-gray-300'
-                                        } placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent sm:text-sm`}
+                                    className={`mt-1 appearance-none relative block w-full px-3 py-2 border-2 ${errors.password ? 'border-red-500' : 'border-black'
+                                        } placeholder-gray-400 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-black sm:text-sm`}
                                     placeholder="Create a password"
                                 />
                                 {errors.password && (
@@ -121,8 +121,8 @@ const RegisterForm = () => {
                                     id="confirmPassword"
                                     type="password"
                                     autoComplete="new-password"
-                                    className={`mt-1 appearance-none relative block w-full px-3 py-2 border ${errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
-                                        } placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent sm:text-sm`}
+                                    className={`mt-1 appearance-none relative block w-full px-3 py-2 border-2 ${errors.confirmPassword ? 'border-red-500' : 'border-black'
+                                        } placeholder-gray-400 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-black sm:text-sm`}
                                     placeholder="Confirm your password"
                                 />
                                 {errors.confirmPassword && (
@@ -135,7 +135,7 @@ const RegisterForm = () => {
                             <button
                                 type="submit"
                                 disabled={loading || success}
-                                className="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:bg-purple-400 disabled:cursor-not-allowed transition-colors"
+                                className="group relative w-full flex justify-center py-2.5 px-4 border-2 border-black text-sm font-bold rounded-lg text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
                             >
                                 {loading ? (
                                     <span className="flex items-center">
@@ -172,7 +172,7 @@ const RegisterForm = () => {
                                 Already have an account?{' '}
                                 <Link
                                     to="/login"
-                                    className="font-medium text-purple-600 hover:text-purple-500 transition-colors"
+                                    className="font-bold text-black hover:underline transition-colors"
                                 >
                                     Sign in here
                                 </Link>
