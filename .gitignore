@@ -63,3 +63,5 @@ TODO.md
 server/prisma/generated
 
 postman_collection.json
+
+coverage
